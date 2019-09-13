@@ -27,8 +27,8 @@ export const values = {
 
 const createCards = () => {
   const cards = [];
-  Object.values(values).forEach((value) => {
-    Object.values(suits).forEach((suit) => {
+  Object.values(values).forEach(value => {
+    Object.values(suits).forEach(suit => {
       cards.push({
         suit,
         value
@@ -44,29 +44,33 @@ const swapCards = (cards, idx1, idx2) => {
   cards[idx2] = temp;
 };
 
-export const createDeck = () => {
-  const cards = createCards();
+export const createDeck = () => ({
+  currentCardIdx: 0,
+  cards: createCards(),
+  getRemainingCards() {
+    return 52 - this.currentCardIdx;
+  },
+  shuffle(recreateCards) {
+    const me = this;
 
-  const deck = {
-    currentCardIdx: 0,
-    cards,
-    shuffle() {
-      cards.forEach((card, idx) => {
-        swapCards(cards, idx, getRndInteger(0, 52));
-      });
-      return this;
-    },
-    drawCard() {
-      const idx = this.currentCardIdx;
-
-      this.currentCardIdx = (idx + 1) % 52;
-
-      return cards[idx];
+    if (recreateCards) {
+      me.cards = createCards();
+      me.currentCardIdx = 0;
     }
-  };
+    me.cards.forEach((card, idx) => {
+      swapCards(me.cards, idx, getRndInteger(0, 52));
+    });
+    return this;
+  },
+  drawCard() {
+    const me = this;
+    const idx = me.currentCardIdx;
 
-  return deck;
-};
+    me.currentCardIdx = (idx + 1) % 52;
 
-export const getSuit = (card) => card.suit;
-export const getValue = (card) => card.value;
+    return me.cards[idx];
+  }
+});
+
+export const getSuit = card => card.suit;
+export const getValue = card => card.value;

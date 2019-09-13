@@ -26,14 +26,19 @@ const PlayerCt = styled.div`
   margin: 24px;
 `;
 
-const Player = (props) => {
-  const cardCts = props.cards.map((card) => (
+const Player = props => {
+  const { cards, result, isPlayer } = props;
+  const shouldHideValue = !isPlayer && !result;
+
+  const cardCts = cards.map((card, index) => (
     <Card
       key={`${cardUtil.getSuit(card)}:${cardUtil.getValue(card)}`}
       card={card}
+      isCardHidden={shouldHideValue && index === 0}
     />
   ));
-  const value = calculateValue(props.cards);
+
+  const value = shouldHideValue ? '?' : calculateValue(props.cards);
 
   return (
     <PlayerCt>
