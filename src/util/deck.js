@@ -27,8 +27,8 @@ export const values = {
 
 const createCards = () => {
   const cards = [];
-  Object.values(values).forEach(value => {
-    Object.values(suits).forEach(suit => {
+  Object.values(values).forEach((value) => {
+    Object.values(suits).forEach((suit) => {
       cards.push({
         suit,
         value
@@ -73,5 +73,5 @@ export const createDeck = () => ({
   }
 });
 
-export const getSuit = card => card.suit;
-export const getValue = card => card.value;
+export const getSuit = (card) => card.suit;
+export const getValue = (card) => card.value;
