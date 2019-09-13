@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import colors from '../styles/colors';
 
-const formatMoney = (money) => `$${money}.00`;
+const formatMoney = money => `$${money}.00`;
 
 const HeaderCt = styled.div`
   flex: 1 1 auto;
@@ -21,13 +21,14 @@ const HeaderCt = styled.div`
   }
 `;
 
-const Header = (props) => {
-  const { result, money, bet } = props;
+const Header = props => {
+  const { result, money, bet, deckCount } = props;
 
   return (
     <HeaderCt>
       <div>Money: {formatMoney(money)}</div>
       <div>Bet: {formatMoney(bet)}</div>
+      <div>Deck Count: {deckCount}</div>
       {result ? <div>Result: {result}</div> : null}
     </HeaderCt>
   );

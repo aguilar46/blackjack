@@ -1,5 +1,0 @@
-- size game board (might not take the time to do this)
-- customize player name
-- use a git repo
-- replace calculateValue with full import
-- change Header name/move it to be closer to action

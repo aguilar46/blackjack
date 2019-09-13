@@ -30,17 +30,20 @@ const GameCt = styled.div`
   overflow-y: auto;
 `;
 
-const deck = createDeck();
+const deck = createDeck().shuffle();
 
 const doNewDeal = () => {
-  deck.shuffle();
+  if (deck.getRemainingCards() < 20) {
+    deck.shuffle(true);
+  }
+
   return [
     [deck.drawCard(), deck.drawCard()],
     [deck.drawCard(), deck.drawCard()]
   ];
 };
 
-const calculateComputerCards = (computerCards) => {
+const calculateComputerCards = computerCards => {
   const newComputerCards = [...computerCards];
 
   //draw cards until computer is done
@@ -51,7 +54,7 @@ const calculateComputerCards = (computerCards) => {
   return newComputerCards;
 };
 
-const Game = (props) => {
+const Game = props => {
   const [money, setMoney] = useState(100);
   const [playerCards, setPlayerCards] = useState([]);
   const [computerCards, setComputerCards] = useState([]);
@@ -158,17 +161,22 @@ const Game = (props) => {
 
   return (
     <GameCt>
-      <Player cards={computerCards} name="Computer" />
-      <Player cards={playerCards} name="Player" />
-      <Header result={result} money={money} bet={bet} />
+      <Player cards={computerCards} name="Computer" result={result} />
+      <Player cards={playerCards} name="Player" isPlayer />
+      <Header
+        result={result}
+        money={money}
+        bet={bet}
+        deckCount={deck.getRemainingCards()}
+      />
       <ControlContainer>
         {newDealEnabled ? (
           <StyledBtn onClick={() => onNewDealClick()}>New Deal</StyledBtn>
         ) : null}
         {hitStayEnabled ? (
           <>
-            <StyledBtn onClick={() => onHitClick()}>Hit</StyledBtn>
             <StyledBtn onClick={() => onStayClick()}>Stay</StyledBtn>
+            <StyledBtn onClick={() => onHitClick()}>Hit</StyledBtn>
           </>
         ) : null}
         <StyledBtn onClick={() => props.onQuitClick()}>Quit</StyledBtn>
