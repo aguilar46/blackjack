@@ -48,7 +48,8 @@ export const createDeck = () => ({
   currentCardIdx: 0,
   cards: createCards(),
   getRemainingCards() {
-    return 52 - this.currentCardIdx;
+    const me = this;
+    return me.cards.length - me.currentCardIdx;
   },
   shuffle(recreateCards) {
     const me = this;
@@ -58,7 +59,7 @@ export const createDeck = () => ({
       me.currentCardIdx = 0;
     }
     me.cards.forEach((card, idx) => {
-      swapCards(me.cards, idx, getRndInteger(0, 52));
+      swapCards(me.cards, idx, getRndInteger(0, me.cards.length));
     });
     return this;
   },
@@ -66,7 +67,7 @@ export const createDeck = () => ({
     const me = this;
     const idx = me.currentCardIdx;
 
-    me.currentCardIdx = (idx + 1) % 52;
+    me.currentCardIdx = (idx + 1) % me.cards.length;
 
     return me.cards[idx];
   }

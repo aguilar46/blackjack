@@ -19,7 +19,7 @@ const CardCt = props => {
   const imageName = `${value}${suit}`;
 
   if (isCardHidden) {
-    return <StyledImage src={cardBack} alt={imageName} />;
+    return <StyledImage src={cardBack} alt="Unknown Card" />;
   }
 
   return (
