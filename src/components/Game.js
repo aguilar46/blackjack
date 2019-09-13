@@ -43,7 +43,7 @@ const doNewDeal = () => {
   ];
 };
 
-const calculateComputerCards = computerCards => {
+const calculateComputerCards = (computerCards) => {
   const newComputerCards = [...computerCards];
 
   //draw cards until computer is done
@@ -54,7 +54,7 @@ const calculateComputerCards = computerCards => {
   return newComputerCards;
 };
 
-const Game = props => {
+const Game = (props) => {
   const [money, setMoney] = useState(100);
   const [playerCards, setPlayerCards] = useState([]);
   const [computerCards, setComputerCards] = useState([]);

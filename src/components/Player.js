@@ -26,7 +26,7 @@ const PlayerCt = styled.div`
   margin: 24px;
 `;
 
-const Player = props => {
+const Player = (props) => {
   const { cards, result, isPlayer } = props;
   const shouldHideValue = !isPlayer && !result;
 

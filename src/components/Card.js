@@ -11,7 +11,7 @@ const StyledImage = styled.img`
   margin: 12px;
 `;
 
-const CardCt = props => {
+const CardCt = (props) => {
   const { card, isCardHidden } = props;
   const suit = getSuit(card);
   const value = getValue(card);
