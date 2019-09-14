@@ -1,4 +1,4 @@
-import { getRndInteger } from './math';
+import * as MathHelper from './math';
 
 export const suits = {
   HEARTS: 'H',
@@ -59,7 +59,7 @@ export const createDeck = () => ({
       me.currentCardIdx = 0;
     }
     me.cards.forEach((card, idx) => {
-      swapCards(me.cards, idx, getRndInteger(0, me.cards.length));
+      swapCards(me.cards, idx, MathHelper.getRndInteger(0, me.cards.length));
     });
     return this;
   },

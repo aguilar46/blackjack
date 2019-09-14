@@ -7,7 +7,7 @@ import { getSuit, getValue } from '../util/deck';
 import cardBack from '../images/red_back.png';
 
 const StyledImage = styled.img`
-  height: 200px;
+  height: 100px;
   margin: 12px;
 `;
 

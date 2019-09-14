@@ -5,7 +5,7 @@ import styled from 'styled-components';
 //local
 import * as cardUtil from '../util/deck';
 import Card from './Card';
-import { calculateValue } from '../util/math';
+import * as mathHelper from '../util/math';
 import colors from '../styles/colors';
 
 const CardDiv = styled.div`
@@ -38,7 +38,7 @@ const Player = (props) => {
     />
   ));
 
-  const value = shouldHideValue ? '?' : calculateValue(props.cards);
+  const value = shouldHideValue ? '?' : mathHelper.calculateValue(props.cards);
 
   return (
     <PlayerCt>
