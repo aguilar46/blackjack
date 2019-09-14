@@ -7,15 +7,17 @@ const TopContainer = styled.div`
   display: grid;
   justify-content: center;
   align-content: start;
+  row-gap: 24px;
   padding: 24px;
 `;
 
 const Home = (props) => {
+  const { onNewGameClick, onChangeName } = props;
+
   return (
-    <TopContainer className="top-container">
-      <Button className="btn" onClick={() => props.onNewGameClick()}>
-        New Game
-      </Button>
+    <TopContainer>
+      <Button onClick={() => onNewGameClick()}>New Game</Button>
+      <Button onClick={() => onChangeName()}>Change Name</Button>
     </TopContainer>
   );
 };

@@ -55,6 +55,11 @@ const calculateComputerCards = (computerCards) => {
 };
 
 const Game = (props) => {
+  //props
+  const { onQuitClick } = props;
+  const { playerName } = props;
+
+  //hooks
   const [money, setMoney] = useState(100);
   const [playerCards, setPlayerCards] = useState([]);
   const [computerCards, setComputerCards] = useState([]);
@@ -163,7 +168,7 @@ const Game = (props) => {
   return (
     <GameCt>
       <Player cards={computerCards} name="Computer" result={result} />
-      <Player cards={playerCards} name="Player" isPlayer />
+      <Player cards={playerCards} name={playerName} isPlayer />
       <Info
         result={result}
         money={money}
@@ -180,7 +185,7 @@ const Game = (props) => {
             <StyledBtn onClick={() => onHitClick()}>Hit</StyledBtn>
           </>
         ) : null}
-        <StyledBtn onClick={() => props.onQuitClick()}>Quit</StyledBtn>
+        <StyledBtn onClick={() => onQuitClick()}>Quit</StyledBtn>
       </ControlContainer>
     </GameCt>
   );
