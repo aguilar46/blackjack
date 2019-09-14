@@ -21,7 +21,7 @@ const HeaderCt = styled.div`
   }
 `;
 
-const Header = (props) => {
+const Info = (props) => {
   const { result, money, bet, deckCount } = props;
 
   return (
@@ -34,4 +34,4 @@ const Header = (props) => {
   );
 };
 
-export default Header;
+export default Info;
