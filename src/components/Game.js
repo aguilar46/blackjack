@@ -5,9 +5,9 @@ import styled from 'styled-components';
 
 //local
 import Button from './Button';
-import { createDeck, getValue } from '../util/deck';
+import * as deckHelper from '../util/deck';
+import * as mathHelper from '../util/math';
 import Player from './Player';
-import { calculateValue } from '../util/math';
 import Header from './Header';
 import colors from '../styles/colors';
 
@@ -30,7 +30,7 @@ const GameCt = styled.div`
   overflow-y: auto;
 `;
 
-const deck = createDeck().shuffle();
+const deck = deckHelper.createDeck().shuffle();
 
 const doNewDeal = () => {
   if (deck.getRemainingCards() < 20) {
@@ -47,7 +47,7 @@ const calculateComputerCards = (computerCards) => {
   const newComputerCards = [...computerCards];
 
   //draw cards until computer is done
-  while (calculateValue(newComputerCards) < 17) {
+  while (mathHelper.calculateValue(newComputerCards) < 17) {
     newComputerCards.push(deck.drawCard());
   }
 
@@ -105,34 +105,35 @@ const Game = (props) => {
       const newPlayersCards = [...playerCards, deck.drawCard()];
       setPlayerCards(newPlayersCards);
 
-      const value = calculateValue(newPlayersCards);
-      if (value === 21) {
+      const playerScore = mathHelper.calculateValue(newPlayersCards);
+
+      if (playerScore === 21) {
         const newComputerCards = calculateComputerCards(computerCards);
 
         setComputerCards(newComputerCards);
 
-        if (getValue(newComputerCards) === 21) {
+        if (mathHelper.calculateValue(newComputerCards) === 21) {
           doTie();
           return;
         }
         doWin();
         return;
       }
-      if (value > 21) {
+      if (playerScore > 21) {
         doLoss();
       }
     }
   };
 
-  if (!result && calculateValue(computerCards) === 21) {
-    if (!result && calculateValue(playerCards) === 21) {
+  if (!result && mathHelper.calculateValue(computerCards) === 21) {
+    if (!result && mathHelper.calculateValue(playerCards) === 21) {
       doTie();
     }
     doLoss();
   } else if (
     !result &&
     playerCards.length === 2 &&
-    calculateValue(playerCards) === 21
+    mathHelper.calculateValue(playerCards) === 21
   ) {
     doWin();
   }
@@ -143,10 +144,10 @@ const Game = (props) => {
 
   const onStayClick = () => {
     setHitStayEnabled(false);
-    const playerValue = calculateValue(playerCards);
+    const playerValue = mathHelper.calculateValue(playerCards);
     //add computer cards/result with delay
     const newComputerCards = calculateComputerCards(computerCards);
-    const computerFinalScore = calculateValue(newComputerCards);
+    const computerFinalScore = mathHelper.calculateValue(newComputerCards);
 
     setComputerCards(newComputerCards);
 
