@@ -8,7 +8,7 @@ import Button from './Button';
 import * as deckHelper from '../util/deck';
 import * as mathHelper from '../util/math';
 import Player from './Player';
-import Header from './Header';
+import Info from './Info';
 import colors from '../styles/colors';
 
 const ControlContainer = styled.div`
@@ -164,7 +164,7 @@ const Game = (props) => {
     <GameCt>
       <Player cards={computerCards} name="Computer" result={result} />
       <Player cards={playerCards} name="Player" isPlayer />
-      <Header
+      <Info
         result={result}
         money={money}
         bet={bet}
