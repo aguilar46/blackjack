@@ -1,6 +1,10 @@
+//3rd Party
 import React from 'react';
 import styled from 'styled-components';
+
+//local
 import Button from './Button';
+import appActions from '../actions';
 
 const TopContainer = styled.div`
   height: calc(100%-48px);
@@ -12,12 +16,14 @@ const TopContainer = styled.div`
 `;
 
 const Home = (props) => {
-  const { onNewGameClick, onChangeName } = props;
+  const { dispatch } = props;
 
   return (
     <TopContainer>
-      <Button onClick={() => onNewGameClick()}>New Game</Button>
-      <Button onClick={() => onChangeName()}>Change Name</Button>
+      <Button onClick={() => dispatch(appActions.newGame())}>New Game</Button>
+      <Button onClick={() => dispatch(appActions.editName())}>
+        Change Name
+      </Button>
     </TopContainer>
   );
 };

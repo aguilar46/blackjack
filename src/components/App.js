@@ -1,15 +1,16 @@
 //3rd Party
 import React from 'react';
-import { useState } from 'react';
+import { useReducer } from 'react';
 import styled from 'styled-components';
 
 //local
 import Home from './Home';
 import appColors from '../styles/colors';
-import { useEnum } from '../util/hooks';
 import Game from './Game';
 import colors from '../styles/colors';
 import EditName from './EditName';
+import { modes } from '../util/app-modes';
+import appReducer from '../reducers';
 
 const ViewPort = styled.div`
   height: 100%;
@@ -17,12 +18,6 @@ const ViewPort = styled.div`
   flex-direction: column;
   background-color: ${appColors.primary.green.normal};
 `;
-
-const modes = {
-  HOME: 'home',
-  GAME: 'game',
-  EDIT_NAME: 'edit name'
-};
 
 const HeaderDiv = styled.div`
   font-size: 30px;
@@ -33,33 +28,30 @@ const HeaderDiv = styled.div`
 `;
 
 const App = (props) => {
-  const [mode, setMode] = useEnum(modes, modes.HOME);
-  const [playerName, setPlayerName] = useState('Player');
+  const [store, dispatch] = useReducer(appReducer, {
+    playerName: 'Player',
+    mode: modes.HOME
+  });
 
-  const onNameChange = (name) => {
-    setPlayerName(name);
-    setMode(modes.HOME);
-  };
+  let component;
+
+  switch (store.mode) {
+    case modes.GAME:
+      component = <Game playerName={store.playerName} dispatch={dispatch} />;
+      break;
+    case modes.EDIT_NAME:
+      component = (
+        <EditName currentName={store.playerName} dispatch={dispatch} />
+      );
+      break;
+    default:
+      component = <Home dispatch={dispatch} />;
+  }
 
   return (
     <ViewPort>
       <HeaderDiv>Black Jack</HeaderDiv>
-      {mode === modes.HOME ? (
-        <Home
-          onNewGameClick={() => setMode(modes.GAME)}
-          onChangeName={() => setMode(modes.EDIT_NAME)}
-        />
-      ) : null}
-      {mode === modes.GAME ? (
-        <Game playerName={playerName} onQuitClick={() => setMode(modes.HOME)} />
-      ) : null}
-      {mode === modes.EDIT_NAME ? (
-        <EditName
-          currentName={playerName}
-          onNameChange={(name) => onNameChange(name)}
-          onCancel={() => setMode(modes.HOME)}
-        />
-      ) : null}
+      {component}
     </ViewPort>
   );
 };
