@@ -10,6 +10,7 @@ import * as mathHelper from '../util/math';
 import Player from './Player';
 import Info from './Info';
 import colors from '../styles/colors';
+import appActions from '../actions';
 
 const ControlContainer = styled.div`
   display: flex;
@@ -56,7 +57,7 @@ const calculateComputerCards = (computerCards) => {
 
 const Game = (props) => {
   //props
-  const { onQuitClick } = props;
+  const { dispatch } = props;
   const { playerName } = props;
 
   //hooks
@@ -185,7 +186,9 @@ const Game = (props) => {
             <StyledBtn onClick={() => onHitClick()}>Hit</StyledBtn>
           </>
         ) : null}
-        <StyledBtn onClick={() => onQuitClick()}>Quit</StyledBtn>
+        <StyledBtn onClick={() => dispatch(appActions.goHome())}>
+          Quit
+        </StyledBtn>
       </ControlContainer>
     </GameCt>
   );

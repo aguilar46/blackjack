@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 //local
 import Button from './Button';
+import appActions from '../actions';
 
 const TopContainer = styled.div`
   height: calc(100%-48px);
@@ -22,9 +23,14 @@ const StyledInput = styled.input`
 `;
 const EditName = (props) => {
   const { currentName } = props;
-  const { onCancel, onNameChange } = props;
+  const { dispatch } = props;
 
   const [name, setName] = useState(currentName);
+
+  const onSaveClick = () => {
+    dispatch(appActions.updateName(name));
+    dispatch(appActions.goHome());
+  };
 
   return (
     <TopContainer>
@@ -34,8 +40,8 @@ const EditName = (props) => {
         placeholder="Enter Name"
         autoFocus
       />
-      <Button onClick={() => onNameChange(name)}>Save</Button>
-      <Button onClick={() => onCancel()}>Cancel</Button>
+      <Button onClick={() => onSaveClick()}>Save</Button>
+      <Button onClick={() => dispatch(appActions.goHome())}>Cancel</Button>
     </TopContainer>
   );
 };
